@@ -10,7 +10,8 @@ postgresql_queries = {
     "insert_user_query":
     """
         INSERT INTO Users (first_name, last_name, date_of_birth)
-        VALUES (%s,%s,%s);
+        VALUES (%s,%s,%s)
+        RETURNING user_id;
     """,
 }
 
