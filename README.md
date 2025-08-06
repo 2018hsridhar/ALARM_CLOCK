@@ -1,5 +1,5 @@
 # ALARM_CLOCK
-ALARM_CLOCK_BASIC_APP
+`export PYTHONPATH="/Users/harisrid/Desktop/CODEBASES/ALARM_CLOCK:$PYTHONPATH"`
 
 # My goal : create an application In Python3 to execute 
 # PostgreSQL queries and connect to the database
