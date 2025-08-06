@@ -114,3 +114,28 @@ class PostgresDBManager:
             if conn:
                 PostgresDBManager.put_connection(conn)
 
+    def execute_query(self, query, params=None):
+        """
+        Executes a query using a connection from the pool.
+        :param query: SQL query to execute.
+        :param params: Parameters for the query (optional).
+        :return: Result of the query execution.
+        """
+        conn = None
+        try:
+            conn = self.get_connection()
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            result = cursor.fetchall()
+            conn.commit()
+            cursor.close()
+            return result
+        except Exception as e:
+            print(f"Error executing query: {e}")
+            if conn:
+                conn.rollback()
+            raise
+        finally:
+            if conn:
+                self.put_connection(conn)
+
