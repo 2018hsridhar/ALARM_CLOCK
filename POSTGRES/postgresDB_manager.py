@@ -5,6 +5,8 @@ from psycopg2 import sql
 from CONSTANTS.appconstants import appconstants
 
 def connect_to_postgresDB():
+    print("HERE!")
+    print("Connecting to PostgresDB...")
     logger.info("Connecting to PostgresDB...")
     """
     Connect to the Postgres database and return the connection object.
@@ -14,7 +16,7 @@ def connect_to_postgresDB():
         db_name = appconstants["db_name"]
         db_user = appconstants["db_user"]
         db_password = appconstants["db_password"]
-        host = appconstants["localhost"]
+        host = appconstants["host"]
         port = appconstants["port"]
 
         connectionString = f"dbname={db_name} user={db_user} password={db_password} host={host} port={port}"

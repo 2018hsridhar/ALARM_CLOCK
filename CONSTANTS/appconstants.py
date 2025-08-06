@@ -1,8 +1,8 @@
 # Connect to your postgres DB
 appconstants = {
-    "db_name": "harisrid",
+    "db_name": "harisrid_db",
     "db_user": "harisrid",
-    "db_password": "harisrid_db",
-    "host": "localhost",
-    "port": "5432"
+    "db_password": "harisrid",
+    "host": "127.0.0.1",
+    "port": "5433"
 }

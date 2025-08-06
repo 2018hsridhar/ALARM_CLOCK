@@ -1,3 +1,9 @@
+# Run Scripts
+<!-- Activate the virtual env -->
+`source /Users/harisrid/Desktop/CODEBASES/ALARM_CLOCK/.venv/bin/activate`
+`python3 PYTHON_PROGRAMS/init.py`
+
+
 # ALARM_CLOCK
 `export PYTHONPATH="/Users/harisrid/Desktop/CODEBASES/ALARM_CLOCK:$PYTHONPATH"`
 
