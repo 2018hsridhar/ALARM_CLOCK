@@ -9,8 +9,8 @@ postgresql_queries = {
     # -- Insert a new user
     "insert_user_query":
     """
-        INSERT INTO Users (first_name, last_name, email, password)
-        VALUES (%s,%s,%s,%s)
+        INSERT INTO Users (first_name, last_name, date_of_birth)
+        VALUES (%s,%s,%s);
     """,
 }
 
