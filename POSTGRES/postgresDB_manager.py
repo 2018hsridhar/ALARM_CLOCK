@@ -5,9 +5,7 @@ from psycopg2 import sql
 from CONSTANTS.appconstants import appconstants
 
 def connect_to_postgresDB():
-    print("HERE!")
     print("Connecting to PostgresDB...")
-    logger.info("Connecting to PostgresDB...")
     """
     Connect to the Postgres database and return the connection object.
     """
@@ -26,6 +24,7 @@ def connect_to_postgresDB():
         cur = conn.cursor()
 
         # Return the connection and cursor
+        print("Connection to PostgresDB successful!")
         return conn, cur
     except Exception as e:
         print(f"Error connecting to the PostgresDB: {e}")
