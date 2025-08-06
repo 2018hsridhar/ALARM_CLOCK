@@ -1,20 +1,3 @@
-# Navigate to
-# ../postgres_docker_container/docker-compose.yml
-# docker-compose up -d 
-
-# Spins up a PostgresDB on a Docker container
-# Containerized envs for isolation
-# Leverage for Enterprise Development and Testing envs
-
-# My goal : create an application In Python3 to execute 
-# PostgreSQL queries and connect to the database
-
-# Get inside
-# docker ps | grep -i 'alpine'
-#  docker exec -it <docker_id> /bin/bash
-# psql -U harisrid -d harisrid_db
-
-
 # Pull PostgresSQL Image
 version: '3.8'
 services:

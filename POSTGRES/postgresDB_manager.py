@@ -2,6 +2,8 @@ from asyncio.log import logger
 import psycopg2
 from psycopg2 import sql
 
+from CONSTANTS.appconstants import appconstants
+
 def connect_to_postgresDB():
     logger.info("Connecting to PostgresDB...")
     """
@@ -9,11 +11,11 @@ def connect_to_postgresDB():
     """
     try:
         # Connect to your postgres DB
-        db_name = "harisrid"
-        db_user = "harisrid"
-        db_password = "harisrid"
-        host = "localhost"
-        port = "5432"
+        db_name = appconstants["db_name"]
+        db_user = appconstants["db_user"]
+        db_password = appconstants["db_password"]
+        host = appconstants["localhost"]
+        port = appconstants["port"]
 
         connectionString = f"dbname={db_name} user={db_user} password={db_password} host={host} port={port}"
         conn = psycopg2.connect(connectionString)
