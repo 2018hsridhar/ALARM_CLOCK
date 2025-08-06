@@ -8,7 +8,7 @@ from CONSTANTS.appconstants import appconstants
 import psycopg2
 from psycopg2 import pool
 
-# DatabaseManager class to manage the connection pool
+# PostgresDBManager class to manage the connection pool
 # This class provides methods to initialize the pool, get a connection, return a connection, and
 # close the pool. It is designed to be used as a singleton, ensuring that only one instance of the
 # connection pool exists throughout the application lifecycle.
@@ -19,8 +19,10 @@ from psycopg2 import pool
 # Reduce the number of connections to the database by using a connection pool by reusing existing connections
 # And enable response times
 
-class DatabaseManager:
+class PostgresDBManager:
     _connection_pool = None
+    MIN_CONNECTIONS = 1
+    MAX_CONNECTIONS = 10
 
     @classmethod
     def initialize_pool(cls, min_connections, max_connections, **kwargs):
@@ -74,70 +76,41 @@ class DatabaseManager:
             cls._connection_pool = None
             print("Connection pool closed.")
 
-# Example Usage:
-if __name__ == "__main__":
-    # Initialize the pool once at the beginning of your application
-    db_name = appconstants["db_name"]
-    db_user = appconstants["db_user"]
-    db_password = appconstants["db_password"]
-    host = appconstants["host"]
-    port = appconstants["port"]
-    if not db_name or not db_user or not db_password or not host or not port:
-        raise ValueError("Database connection parameters are not set in appconstants.")
-    # Initialize the connection pool with the database parameters
-    DatabaseManager.initialize_pool(
-        min_connections=1,
-        max_connections=10,
-        user=db_user,
-        password=db_password,
-        host=host,
-        port=port,
-        database=db_name
-    )
+    @classmethod
+    def __init__(self):
+        # Initialize the pool once at the beginning of your application
+        print(f"Initializing PostgresDBManager with appconstants.")
+        db_name = appconstants["db_name"]
+        db_user = appconstants["db_user"]
+        db_password = appconstants["db_password"]
+        host = appconstants["host"]
+        port = appconstants["port"]
+        if not db_name or not db_user or not db_password or not host or not port:
+            raise ValueError("Database connection parameters are not set in appconstants.")
+        # Initialize the connection pool with the database parameters
+        PostgresDBManager.initialize_pool(
+            min_connections=PostgresDBManager.MIN_CONNECTIONS,
+            max_connections=PostgresDBManager.MAX_CONNECTIONS,
+            user=db_user,
+            password=db_password,
+            host=host,
+            port=port,
+            database=db_name
+        )
 
-    # Get a connection, perform operations, and return it to the pool
-    conn = None
-    try:
-        conn = DatabaseManager.get_connection()
-        cursor = conn.cursor()
-        versionSelectQuery = "SELECT version();"
-        cursor.execute(versionSelectQuery)
-        status = cursor.fetchone()
-        print(f"Connected to the database successfully: {status[0]}")
-        cursor.close()
-    except Exception as e:
-        print(f"Operation failed: {e}")
-    finally:
-        if conn:
-            DatabaseManager.put_connection(conn)
+        # Get a connection, perform operations, and return it to the pool
+        conn = None
+        try:
+            conn = PostgresDBManager.get_connection()
+            cursor = conn.cursor()
+            versionSelectQuery = "SELECT version();"
+            cursor.execute(versionSelectQuery)
+            status = cursor.fetchone()
+            print(f"Connected to the database successfully: {status[0]}")
+            cursor.close()
+        except Exception as e:
+            print(f"Operation failed: {e}")
+        finally:
+            if conn:
+                PostgresDBManager.put_connection(conn)
 
-    # Close the pool when your application shuts down
-    DatabaseManager.close_pool()
-
-
-
-# def connect_to_postgresDB():
-#     print("Connecting to PostgresDB...")
-#     """
-#     Connect to the Postgres database and return the connection object.
-#     """
-#     try:
-#         # Connect to your postgres DB
-#         db_name = appconstants["db_name"]
-#         db_user = appconstants["db_user"]
-#         db_password = appconstants["db_password"]
-#         host = appconstants["host"]
-#         port = appconstants["port"]
-
-#         connectionString = f"dbname={db_name} user={db_user} password={db_password} host={host} port={port}"
-#         conn = psycopg2.connect(connectionString)
-
-#         # Open a cursor to perform database operations
-#         cur = conn.cursor()
-
-#         # Return the connection and cursor
-#         print("Connection to PostgresDB successful!")
-#         return conn, cur
-#     except Exception as e:
-#         print(f"Error connecting to the PostgresDB: {e}")
-#         return None, None
