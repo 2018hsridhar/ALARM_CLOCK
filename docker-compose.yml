@@ -1,0 +1,40 @@
+# Navigate to
+# ../postgres_docker_container/docker-compose.yml
+# docker-compose up -d 
+
+# Spins up a PostgresDB on a Docker container
+# Containerized envs for isolation
+# Leverage for Enterprise Development and Testing envs
+
+# My goal : create an application In Python3 to execute 
+# PostgreSQL queries and connect to the database
+
+# Get inside
+# docker ps | grep -i 'alpine'
+#  docker exec -it <docker_id> /bin/bash
+# psql -U harisrid -d harisrid_db
+
+
+# Pull PostgresSQL Image
+version: '3.8'
+services:
+    db:
+        # Lightweight PostgreSQL Image
+        image: postgres:15-alpine
+        restart: always
+        # Environment variables for database configuration
+        environment:
+            POSTGRES_USER: harisrid
+            POSTGRES_PASSWORD: harisrid
+            POSTGRES_DB: harisrid_db
+        # Expose the port for external access
+        ports:
+            # hostPort:containerPort mappings
+            - "5432:5432"
+        # Named volume mountained for data persistence
+        volumes:
+            - db_data:/var/lib/postgresql/data
+
+# Named Volume for Data Persistence
+volumes:
+    db_data: # Define the named volume for data persistence
