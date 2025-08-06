@@ -2,12 +2,12 @@ class my_user_song_app:
     def __init__(self):
         # Initialize the user base with some default users
         # This is a simple in-memory user base for demonstration purposes.
-        self.my_user_base = ['Hari','Sophia','Julian','Shrinal']
-        self.user_songs = dict()
-        self.user_songs['Hari'] = ['Song1', 'Song2']
-        self.user_songs['Sophia'] = ['Song3', 'Song4']
-        self.user_songs['Julian'] = ['Song5']
-        self.user_songs['Shrinal'] = ['Song6', 'Song7', 'Song8']
+        # self.my_user_base = ['Hari','Sophia','Julian','Shrinal']
+        # self.user_songs = dict()
+        # self.user_songs['Hari'] = ['Song1', 'Song2']
+        # self.user_songs['Sophia'] = ['Song3', 'Song4']
+        # self.user_songs['Julian'] = ['Song5']
+        # self.user_songs['Shrinal'] = ['Song6', 'Song7', 'Song8']
 
     def get_user_base(self):
         """

@@ -6,7 +6,7 @@ ALARM_CLOCK_BASIC_APP
 
 
 # Docker Components
-cd ../postgres_docker_container/docker-compose.yml
+cd ../yml/docker-compose.yml
 docker-compose up -d 
 
 Spins up a PostgresDB on a Docker container
