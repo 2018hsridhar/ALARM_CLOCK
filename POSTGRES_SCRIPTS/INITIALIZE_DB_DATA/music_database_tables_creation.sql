@@ -18,7 +18,7 @@ CREATE TABLE Users (
     last_name VARCHAR(100) NOT NULL,
     date_of_birth DATE NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,    
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     -- Optional: Add constraints
     CONSTRAINT chk_birth_date CHECK (date_of_birth <= CURRENT_DATE),
