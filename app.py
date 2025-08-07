@@ -2,6 +2,7 @@
 from flask import Flask
 from routes import main
 from POSTGRES.PostgresDBManager import PostgresDBManager
+from PYTHON_PROGRAMS.my_user_song_app import my_user_song_app
 import sys
 import os
 from CONSTANTS.appconstants import appconstants
@@ -17,20 +18,35 @@ def create_app():
     """Application factory function to create the Flask app instance"""
     app = Flask(__name__, template_folder='html')
     
+    # Set up configurations
+    app.config['SECRET_KEY'] = 'your_secret_key_here'  # Change this in production
+    
     # Initialize database connection
     try:
         print("Initializing database connection...")
+        # Initialize the connection pool with parameters from appconstants
+        # Create a database manager instance
         postgresDBManager = PostgresDBManager()
-        postgresDBManager.initialize_pool()
         conn = postgresDBManager.get_connection()
         if conn:
             print("Database connection successful!")
-            # Store connection in app config for later use
+            # Store database manager in app config for later use
             app.config['DB_CONNECTION'] = conn
+            app.config['DB_MANAGER'] = postgresDBManager
         else:
             print("Database connection failed!")
     except Exception as e:
         print(f"Error initializing database: {e}")
+    
+    # Initialize the user song application logic
+    try:
+        print("Initializing my_user_song_app...")
+        # Create an instance of my_user_song_app and store it in the app context
+        userSongApp = my_user_song_app()
+        app.my_user_song_app = userSongApp
+        print("my_user_song_app initialized successfully!")
+    except Exception as e:
+        print(f"Error initializing my_user_song_app: {e}")
     
     # Register the blueprint
     app.register_blueprint(main)
@@ -46,6 +62,7 @@ if __name__ == '__main__':
     print("Available routes:")
     print("- GET  http://localhost:5001/        (Home page)")
     print("- GET  http://localhost:5001/health  (Health check)")
+    print("- GET  http://localhost:5001/getUserBase  (Get user base)")
 
     localhost = appconstants['localhost']
     port = appconstants['applicationPort']

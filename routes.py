@@ -1,4 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request, current_app
+from POSTGRES.PostgresDBManager import PostgresDBManager
+from CONSTANTS.appconstants import appconstants
+from PYTHON_PROGRAMS.my_user_song_app import my_user_song_app
 
 main = Blueprint('main', __name__)
 
@@ -20,14 +23,23 @@ def health_check():
 # # APIs - return only JSON data, or also render HTML templates?
 # # JSON - programatic desireable
 # # curl -X GET http://localhost:5000/getUserBase
-# @main.route('/getUserBase', methods=['GET'])
-# def get_user_base():
-#     my_user_base = current_app.my_user_song_app.get_user_base()
-#     if not my_user_base:
-#         return jsonify(error="User base is empty"), 404
-#     # return jsonify(songs=my_user_base), 200
-#     user_base_payload = {"users": my_user_base}
-#     return render_template('primary_data_display.html', payload=user_base_payload)
+@main.route('/getUserBase', methods=['GET'])
+def get_user_base():
+    try:
+        # Get the database manager from the app config
+        db_manager = current_app.config.get('DB_MANAGER')
+        if not db_manager:
+            return jsonify(error="Database manager not available"), 500
+            
+        # Call get_user_base with the database manager
+        my_user_base = current_app.my_user_song_app.get_user_base(db_manager)
+        if not my_user_base:
+            return jsonify(error="User base is empty"), 404
+        
+        user_base_payload = {"users": my_user_base}
+        return render_template('primary_data_display.html', payload=user_base_payload)
+    except Exception as e:
+        return jsonify(error=f"Error retrieving user base: {str(e)}"), 500
 
 # # Unit testing : 
 # # curl -X POST -H "Content-Type: application/json" -d '{"user": "Natalie"}' http://localhost:5000/addUser
