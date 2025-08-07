@@ -41,20 +41,37 @@ def get_user_base():
     except Exception as e:
         return jsonify(error=f"Error retrieving user base: {str(e)}"), 500
 
-# # Unit testing : 
-# # curl -X POST -H "Content-Type: application/json" -d '{"user": "Natalie"}' http://localhost:5000/addUser
-# @main.route('/addUser', methods=['POST'])
-# def add_a_user():
-#     my_user_base = current_app.my_user_song_app.my_user_base
-#     data = request.get_json()
-#     user = data.get('user', None)
-#     if not user or not isinstance(user, str):
-#         return jsonify(error="Invalid user input"), 400
-#     my_user_base.append(user)
-#     # In a real application, you would handle the update logic here
-#     # For this example, we will just return a success message
-#     success_message = "User list updated successfully"
-#     return jsonify(message=success_message), 200
+# Unit testing : 
+# curl -X POST -H "Content-Type: application/json" -d '{"first_name": "Jane", "last_name": "Wang", "date_of_birth": "1990-01-01"}' http://localhost:5000/addUser
+# Add a user should return the user base ( call underneath here ) 
+@main.route('/addUser', methods=['POST'])
+def add_a_user():
+    data = request.get_json()
+    first_name = data.get('first_name', None)
+    last_name = data.get('last_name', None)
+    date_of_birth = data.get('date_of_birth', None)
+    # def add_user(self, postgresDBManager:PostgresDBManager, first_name, last_name, date_of_birth):
+    if not first_name or not last_name or not date_of_birth:
+        return jsonify(error="Invalid user input"), 400
+    # In a real application, you would handle the update logic here
+    # For this example, we will just return a success message
+
+    try:
+        # Get the database manager from the app config
+        db_manager = current_app.config.get('DB_MANAGER')
+        if not db_manager:
+            return jsonify(error="Database manager not available"), 500
+        # Call add_user with the database manager
+        status_code = current_app.my_user_song_app.add_user(db_manager, first_name, last_name, date_of_birth)
+        if status_code == 0:
+            success_message = "User added successfully"
+            return jsonify(message=success_message), 200
+        elif status_code == 1:
+            return jsonify(error="User already exists"), 409
+        else:
+            return jsonify(error="Error adding user"), 500
+    except Exception as e:
+        return jsonify(error=f"Error retrieving user base: {str(e)}"), 500
 
 # # curl -X DELETE -H "Content-Type: application/json" -d '{"user": "Sophia"}' http://localhost:5000/deleteUser
 # @main.route('/deleteUser', methods=['DELETE'])

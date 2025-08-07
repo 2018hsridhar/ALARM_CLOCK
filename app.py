@@ -63,6 +63,7 @@ if __name__ == '__main__':
     print("- GET  http://localhost:5001/        (Home page)")
     print("- GET  http://localhost:5001/health  (Health check)")
     print("- GET  http://localhost:5001/getUserBase  (Get user base)")
+    print("- POST http://localhost:5001/addUser  (Add a user)")
 
     localhost = appconstants['localhost']
     port = appconstants['applicationPort']
