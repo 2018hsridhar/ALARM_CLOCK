@@ -17,7 +17,7 @@ from psycopg2 import pool
 
 # Connection pool for managing database connections
 # Reduce the number of connections to the database by using a connection pool by reusing existing connections
-# And enable response times
+# And enable expeditious response to database queries
 
 class PostgresDBManager:
     _connection_pool = None
