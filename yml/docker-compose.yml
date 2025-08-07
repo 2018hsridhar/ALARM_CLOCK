@@ -13,11 +13,13 @@ services:
         # Expose the port for external access
         ports:
             # hostPort:containerPort mappings
-            - "5432:5432"
+            - "5433:5432"
         # Named volume mountained for data persistence
         volumes:
             - db_data:/var/lib/postgresql/data
+            - .POSTGRES_SCRIPTS/INITIALIZE_DB_DATA:/docker-entrypoint-initdb.d
 
 # Named Volume for Data Persistence
 volumes:
     db_data: # Define the named volume for data persistence
+    POSTGRES_SCRIPTS: # Define the named volume for initialization scripts
