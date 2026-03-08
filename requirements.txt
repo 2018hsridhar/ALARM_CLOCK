@@ -2,5 +2,7 @@
 brew install psycopg2>=2.9.3
 pip install psycopg2-binary
 
+pip install flask psycopg2-binary
+
 # Flask-SQLAlchemy is an extension for Flask that adds support for SQLAlchemy, required for ORM functionality
 brew install flask-sqlalchemy>=2.5.1

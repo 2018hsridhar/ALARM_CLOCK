@@ -23,33 +23,33 @@ def create_app():
     
     # Initialize database connection
     try:
-        print("Initializing database connection...")
+        print("Initializing postgreDB database connection...")
         # Initialize the connection pool with parameters from appconstants
         # Create a database manager instance
-        postgresDBManager = PostgresDBManager()
-        conn = postgresDBManager.get_connection()
-        if conn:
-            print("Database connection successful!")
+        songPostgresDBManager = PostgresDBManager()
+        songPostgreConn = songPostgresDBManager.get_connection()
+        if songPostgreConn:
+            print("PostgreDB Database connection successful!")
             # Store database manager in app config for later use
-            app.config['DB_CONNECTION'] = conn
-            app.config['DB_MANAGER'] = postgresDBManager
+            app.config['DB_CONNECTION'] = songPostgreConn
+            app.config['DB_MANAGER'] = songPostgresDBManager
         else:
-            print("Database connection failed!")
+            print("PostgreDB Database connection failed!")
     except Exception as e:
-        print(f"Error initializing database: {e}")
+        print(f"Error initializing song postgreDB database: {e}")
     
-    # Initialize the user song application logic
-    try:
-        print("Initializing my_user_song_app...")
-        # Create an instance of my_user_song_app and store it in the app context
-        userSongApp = my_user_song_app()
-        app.my_user_song_app = userSongApp
-        print("my_user_song_app initialized successfully!")
-    except Exception as e:
-        print(f"Error initializing my_user_song_app: {e}")
+    # # Initialize the user song application logic
+    # try:
+    #     print("Initializing my_user_song_app...")
+    #     # Create an instance of my_user_song_app and store it in the app context
+    #     userSongApp = my_user_song_app()
+    #     app.my_user_song_app = userSongApp
+    #     print("my_user_song_app initialized successfully!")
+    # except Exception as e:
+    #     print(f"Error initializing my_user_song_app: {e}")
     
-    # Register the blueprint
-    app.register_blueprint(main)
+    # # Register the blueprint
+    # app.register_blueprint(main)
     
     return app
 
