@@ -1,10 +1,11 @@
-# INITIALIZATION SCRIPTS
+# INITIALIZATION SCRIPTS AND VENV
+
 <!-- Activate the virtual env -->
-`source /Users/harisrid/Desktop/CODEBASES/ALARM_CLOCK/.venv/bin/activate`
-`python3 BACKEND/init.py`
+`cd /Users/harisrid/Desktop/CODEBASES/ALARM_CLOCK/`
 `python3 -m venv .venv`
 `source .venv/bin/activate`
-
+# may be needed ( in a venv )?
+`pip install flask`
 
 # Run alarm clock application
 `export PYTHONPATH="/Users/harisrid/Desktop/CODEBASES/ALARM_CLOCK:$PYTHONPATH"`

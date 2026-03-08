@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request, current_app
 from POSTGRES.PostgresDBManager import PostgresDBManager
 from CONSTANTS.appconstants import appconstants
-from PYTHON_PROGRAMS.my_user_song_app import my_user_song_app
+from BACKEND.my_user_song_app import my_user_song_app
 
 main = Blueprint('main', __name__)
 

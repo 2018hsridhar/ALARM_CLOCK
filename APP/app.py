@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
-from flask import Flask
+import sys
+import os
+
+# Ensure project root and APP directory are on sys.path so local packages import correctly
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+app_dir = os.path.dirname(os.path.abspath(__file__))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+if app_dir not in sys.path:
+    sys.path.insert(0, app_dir)
+
 from BACKEND.routes import main
 from POSTGRES.PostgresDBManager import PostgresDBManager
 from BACKEND.my_user_song_app import my_user_song_app
-import sys
-import os
 from CONSTANTS.appconstants import appconstants
-
-# Add the project root to Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from flask import Flask
 
 # Single factory function for Flask application instance
 # This function initializes the Flask app, sets up the database connection,
