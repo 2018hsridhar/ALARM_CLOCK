@@ -1,7 +1,7 @@
 # Run Scripts
 <!-- Activate the virtual env -->
 `source /Users/harisrid/Desktop/CODEBASES/ALARM_CLOCK/.venv/bin/activate`
-`python3 PYTHON_PROGRAMS/init.py`
+`python3 BACKEND/init.py`
 
 
 # ALARM_CLOCK
