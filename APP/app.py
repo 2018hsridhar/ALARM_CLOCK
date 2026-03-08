@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 from flask import Flask
-from routes import main
+from BACKEND.routes import main
 from POSTGRES.PostgresDBManager import PostgresDBManager
-from PYTHON_PROGRAMS.my_user_song_app import my_user_song_app
+from BACKEND.my_user_song_app import my_user_song_app
 import sys
 import os
 from CONSTANTS.appconstants import appconstants
